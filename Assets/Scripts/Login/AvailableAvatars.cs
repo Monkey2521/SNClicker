@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Login/Avatars", fileName = "New avatars")]
 public class AvailableAvatars : ScriptableObject
 {
     [SerializeField] private List<Sprite> _allAvatars;

@@ -17,7 +17,6 @@ public class LoginPanel : MonoBehaviour
 
     private void OnEnable()
     {
-        if (_isDebug) Debug.Log("PUK");
         if (_login.IsEmpty)
         {
             _registryMenu.SetActive(true);
