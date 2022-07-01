@@ -1,16 +1,10 @@
 using UnityEngine;
 
-public class Player
+[CreateAssetMenu(menuName = "Player", fileName = "New player")]
+public class Player : ScriptableObject
 {
-    private string _name;
-    private Sprite _avatar;
+    public string Name;
+    public Sprite Avatar;
 
-    public string Name => _name;
-    public Sprite Avatar => _avatar;
-
-    public Player(string name, Sprite avatar)
-    {
-        _name = name;
-        _avatar = avatar;
-    }
+    public bool Initialized => Name.Length > 0 && Avatar != null;
 }

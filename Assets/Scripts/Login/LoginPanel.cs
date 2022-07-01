@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class LoginPanel : MonoBehaviour
@@ -9,6 +8,7 @@ public class LoginPanel : MonoBehaviour
     [SerializeField] private bool _isDebug;
 
     [Header("Settings")]
+    [SerializeField] private Player _player;
     [SerializeField] private GameObject _registryMenu;
     [SerializeField] private Transform _regAvatarsParent;
     [SerializeField] private AvailableAvatars _avatars;
@@ -16,12 +16,28 @@ public class LoginPanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _name;
     private List<AvatarPreview> _currentAvatars = new List<AvatarPreview>();
 
-    public Sprite ChoosenAvatar;
-    public string Name;
+    [Space(5)]
+    [SerializeField] private GameUI _gameUI;
+    [SerializeField] private GameObject _game;
+
+    [Space(5)]
+    [SerializeField] private MessageBox _messageBox;
+
+    private Sprite _choosenAvatar;
+    private string _choosenName;
 
     private void OnEnable()
     {
-        NewGame();
+        if (_player.Initialized)
+        {
+            gameObject.SetActive(false);
+            _gameUI.enabled = true;
+            _game.SetActive(true);
+        }
+        else
+        {
+            NewGame();
+        }
     }
 
     private void OnDisable()
@@ -44,7 +60,7 @@ public class LoginPanel : MonoBehaviour
             _currentAvatars.Remove(_currentAvatars[0]);
         }
 
-        ChoosenAvatar = null;
+        _choosenAvatar = null;
 
         List<Sprite> avatars = _avatars.GetAvatars(count);
 
@@ -60,20 +76,25 @@ public class LoginPanel : MonoBehaviour
 
     public void ChooseAvatar(Sprite sprite)
     {
-        ChoosenAvatar = sprite;
+        _choosenAvatar = sprite;
     }
 
     public void Play()
     {
-        Name = _name.text.ToUpper();
+        _choosenName = _name.text.ToUpper();
 
-        if (ChoosenAvatar != null && Name.Length > 0)
+        if (_choosenAvatar != null && _choosenName.Length > 0)
         {
-            
+            _player.Name = _choosenName;
+            _player.Avatar = _choosenAvatar;
+
+            gameObject.SetActive(false);
+            _gameUI.enabled = true;
+            _game.SetActive(true);
         }
         else
         {
-            Debug.Log("Somthing not ready");
+            Debug.Log("Somthing is not ready");
         }
     }
 }
