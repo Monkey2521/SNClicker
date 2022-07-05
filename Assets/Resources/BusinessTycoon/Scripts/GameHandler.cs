@@ -50,6 +50,8 @@ public class GameHandler : MonoBehaviour
         {
             OnUpdateBalance();
         }
+
+        Debug.Log(CurrentBalance);
     }
 
     public bool CanBuy(double amount)

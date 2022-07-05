@@ -10,26 +10,19 @@ public class Gallery : MonoBehaviour
     [SerializeField] VideoPlayer _videoPlayer;
 
     [Space(5)]
-    [SerializeField] private string _videosPath;
-    [SerializeField] private string _spritePath;
+    [SerializeField] private List<VideoInfo> _videos;
 
     private List<LockedVideo> _lockedVideos = new();
 
     private void Start()
     {
-        List<VideoClip> clips = new List<VideoClip>(Resources.LoadAll<VideoClip>(_videosPath));
-        List<Sprite> sprites = new List<Sprite>(Resources.LoadAll<Sprite>(_spritePath));
-
-        Debug.Log(clips.Count + " " + sprites.Count);
-
-        for (int i = 0; i < clips.Count; i++)
+        foreach (VideoInfo info in _videos)
         {
             LockedVideo video = Instantiate(_videoPrefab, _lockedVideosParent);
 
-            video.Init(_videoPlayer, clips[i], sprites[i], 0); // cost
+            video.Init(_videoPlayer, info.Clip, info.Icon, info.UnlockCost);
 
             _lockedVideos.Add(video);
         }
-        
     }
 }
