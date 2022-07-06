@@ -113,15 +113,16 @@ public static class MoneyFormat
     };
 
     private static int lowestScale = 6;
+    private static char[] separator = { ',', '.' };
 
     public static MoneyDetail GetNumberDetails(string money)
     {
-        return GetNumberDetails(double.Parse(money));
+        return GetNumberDetails(double.Parse(money.Split(separator)[0]));
     }
 
     public static MoneyDetail GetNumberDetails(double money)
     {
-        string text = money.ToString();
+        string text = money.ToString().Split(separator)[0];
         int num = DigitCount(text) - 1;
         if (num < lowestScale)
         {

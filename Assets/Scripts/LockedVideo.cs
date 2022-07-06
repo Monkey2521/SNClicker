@@ -40,6 +40,6 @@ public class LockedVideo : MonoBehaviour
     public void PlayVideo()
     {
         _videoPlayer.clip = _unlockedClip;
-        
+        _videoPlayer.transform.parent.parent.gameObject.SetActive(true);
     }
 }

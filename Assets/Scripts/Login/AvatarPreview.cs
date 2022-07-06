@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AvatarPreview : MonoBehaviour
 {
-    [SerializeField] private UnityEngine.UI.Image _image;
+    [SerializeField] private Image _image;
     private LoginPanel _loginPanel;
 
     public void Init(LoginPanel loginPanel, Sprite avatar)
