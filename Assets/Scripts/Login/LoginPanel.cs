@@ -17,11 +17,7 @@ public class LoginPanel : MonoBehaviour
     private List<AvatarPreview> _currentAvatars = new List<AvatarPreview>();
 
     [Space(5)]
-    [SerializeField] private GameUI _gameUI;
     [SerializeField] private GameObject _game;
-
-    [Space(5)]
-    [SerializeField] private MessageBox _messageBox;
 
     private Sprite _choosenAvatar;
     private string _choosenName;
@@ -31,7 +27,6 @@ public class LoginPanel : MonoBehaviour
         if (_player.Initialized)
         {
             gameObject.SetActive(false);
-            _gameUI.enabled = true;
             _game.SetActive(true);
         }
         else
@@ -89,7 +84,6 @@ public class LoginPanel : MonoBehaviour
             _player.Avatar = _choosenAvatar;
 
             gameObject.SetActive(false);
-            _gameUI.enabled = true;
             _game.SetActive(true);
         }
         else
