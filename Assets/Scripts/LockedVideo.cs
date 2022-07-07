@@ -1,12 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using TMPro;
+
 public class LockedVideo : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private Image _source;
     [SerializeField] private GameObject _lockIcon;
     [SerializeField] private Button _button;
+    [SerializeField] private TextMeshProUGUI _costText;
+    [SerializeField] private GameObject _unlockGO;
 
     private VideoPlayer _videoPlayer;
     private VideoClip _unlockedClip;
@@ -20,7 +24,14 @@ public class LockedVideo : MonoBehaviour
         _onUnlockSprite = onUnlockSprite;
         _unlockCost = unlockCost;
 
+        var m = MoneyFormat.GetNumberDetails(_unlockCost);
+
+        _costText.text = m.FormattedNumber + " " + m.Scale;
+
         _button.onClick.AddListener(Unlock);
+
+        _source.sprite = _onUnlockSprite;
+        _source.gameObject.SetActive(false);
     }
 
     public void Unlock()
@@ -29,8 +40,10 @@ public class LockedVideo : MonoBehaviour
         {
             GameHandler.instance.AddToBalance(-_unlockCost);
 
-            _source.sprite = _onUnlockSprite;
+            _source.gameObject.SetActive(true);
             _lockIcon.SetActive(false);
+            _unlockGO.SetActive(false);
+            _costText.gameObject.SetActive(false);
 
             _button.onClick.RemoveListener(Unlock);
             _button.onClick.AddListener(PlayVideo);
