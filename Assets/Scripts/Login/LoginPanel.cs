@@ -43,6 +43,7 @@ public class LoginPanel : MonoBehaviour
     void NewGame()
     {
         _registryMenu.SetActive(true);
+        _game.SetActive(false);
 
         SetNewAvatars();
     }

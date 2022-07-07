@@ -7,4 +7,10 @@ public class Player : ScriptableObject
     public Sprite Avatar;
 
     public bool Initialized => Name.Length > 0 && Avatar != null;
+
+    public void Reset()
+    {
+        Name = "";
+        Avatar = null;
+    }
 }
