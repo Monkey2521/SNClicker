@@ -34,7 +34,7 @@ public class PersistData : MonoBehaviour
     void Awake()
     {
         GameFilePath = Application.persistentDataPath + "/userData";
-        GameFileName = "/default.dat";
+        GameFileName = "/test.dat";
 
         // Singelton - There can be only one...
         if (instance == null)
@@ -78,7 +78,7 @@ public class PersistData : MonoBehaviour
 
     void OnEnable()
     {
-            instance.Load();
+        instance.Load();
     }
 
     void OnGUI()
