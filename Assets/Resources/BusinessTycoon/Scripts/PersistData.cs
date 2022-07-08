@@ -30,6 +30,8 @@ public class PersistData : MonoBehaviour
     public GameObject UpgradePanel;
     public GameObject UpgradePrefab;
 
+    [HideInInspector] public bool NewPlayer;
+
     // Use this for initialization
     void Awake()
     {
@@ -41,6 +43,7 @@ public class PersistData : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
             instance = this;
+            instance.NewPlayer = false;
         }
         else if (instance != this)
         {
@@ -50,7 +53,7 @@ public class PersistData : MonoBehaviour
 
     void Start()
     {
-
+        OnEnable();
     }
 
     private void OnApplicationFocus(bool focusStatus)
@@ -78,7 +81,8 @@ public class PersistData : MonoBehaviour
 
     void OnEnable()
     {
-        instance.Load();
+        if (GameHandler.instance != null)
+            instance.Load();
     }
 
     void OnGUI()
@@ -112,7 +116,7 @@ public class PersistData : MonoBehaviour
     {
         GameData = new GameDataModel();
 
-        if (File.Exists(GameFilePath + "/" + GameFileName))
+        if (File.Exists(GameFilePath + "/" + GameFileName) && ! NewPlayer)
         {
             var bf = new BinaryFormatter();
             var file = File.Open(GameFilePath + "/" + GameFileName, FileMode.Open);
@@ -301,6 +305,7 @@ public class PersistData : MonoBehaviour
 
     private void UpdateGameData(double idleAmount)
     {
+        Debug.Log(GameHandler.instance);
         GameHandler.instance.SetBalance(GameData.CurrentBalance);
         GameHandler.instance.AddToBalance(idleAmount);
     }

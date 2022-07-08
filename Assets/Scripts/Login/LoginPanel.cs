@@ -22,16 +22,18 @@ public class LoginPanel : MonoBehaviour
     private Sprite _choosenAvatar;
     private string _choosenName;
 
-    private void OnEnable()
+    private void Start()
     {
         if (_player.Initialized)
         {
             gameObject.SetActive(false);
             _game.SetActive(true);
+            PersistData.instance.NewPlayer = false;
         }
         else
         {
-            NewGame();
+            NewGame(); 
+            PersistData.instance.NewPlayer = true;
         }
     }
 
